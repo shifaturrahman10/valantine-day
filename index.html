@@ -1,0 +1,729 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#ffd0e5">
+<meta name="description" content="A little Valentine's surprise made with love.">
+<title>Valentine's Day 💗</title>
+
+<style>
+:root {
+  --pink: #ffd0e5;
+  --light-pink: #ffe8f2;
+  --deep-pink: #bd1e59;
+  --white: #ffffff;
+  --text: #6e2443;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: Arial, Helvetica, sans-serif;
+  color: var(--text);
+  background: linear-gradient(180deg, #ffd0e5, #ffe8f2 48%, #fff 100%);
+}
+
+button {
+  font: inherit;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.page {
+  width: 100%;
+  max-width: 650px;
+  min-height: 100vh;
+  margin: auto;
+  padding: 28px 18px 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.main-content {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.hero-image {
+  width: min(100%, 390px);
+  height: 300px;
+  object-fit: contain;
+  border-radius: 20px;
+  filter: drop-shadow(0 8px 16px #bd1e5920);
+  animation: float 3s ease-in-out infinite;
+}
+
+.question {
+  width: 100%;
+  margin: 22px 0 10px;
+  text-align: center;
+  color: var(--deep-pink);
+  font-size: clamp(27px, 6vw, 38px);
+  font-style: italic;
+  line-height: 1.25;
+}
+
+.button-row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin: 20px 0;
+  min-height: 54px;
+  width: 100%;
+}
+
+.btn {
+  border: 0;
+  border-radius: 12px;
+  padding: 13px 25px;
+  font-weight: bold;
+  font-size: 19px;
+  cursor: pointer;
+  transition: transform .2s, background .2s, box-shadow .2s;
+  box-shadow: 0 4px 10px #00000012;
+}
+
+.btn:active {
+  transform: scale(.95);
+}
+
+.yes-btn {
+  background: #22b86b;
+  color: white;
+  min-width: 82px;
+  animation: bounce 2s infinite;
+}
+
+.yes-btn:hover {
+  background: #159b55;
+}
+
+.no-btn {
+  background: #ef476f;
+  color: white;
+  min-width: 82px;
+}
+
+.no-btn:hover {
+  background: #d92c57;
+}
+
+.certificate-open-btn {
+  margin: 8px 0 22px;
+  padding: 14px 20px;
+  border: 0;
+  border-radius: 14px;
+  background: var(--deep-pink);
+  color: white;
+  font-size: 17px;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 6px 18px #bd1e5930;
+  animation: bounce 2s infinite;
+}
+
+.certificate-open-btn:hover {
+  background: #a0184a;
+}
+
+.certificate {
+  width: 100%;
+  padding: 22px;
+  border: 3px dashed var(--deep-pink);
+  border-radius: 22px;
+  background: #ffffffed;
+  box-shadow: 0 12px 35px #bd1e5920;
+  text-align: center;
+  margin: 0 0 24px;
+  animation: appear .55s ease both;
+}
+
+.document-label {
+  font-size: 12px;
+  font-weight: bold;
+  letter-spacing: 3px;
+  color: var(--deep-pink);
+  margin-bottom: 10px;
+}
+
+.certificate h2 {
+  font-size: clamp(23px, 5vw, 30px);
+  font-style: italic;
+  line-height: 1.3;
+  margin: 8px 0 16px;
+  color: var(--deep-pink);
+}
+
+.certificate-description {
+  color: #59404a;
+  font-size: 15px;
+  line-height: 1.7;
+  margin-bottom: 18px;
+}
+
+.terms {
+  padding: 13px;
+  margin: 15px 0;
+  background: #ffe8f2;
+  border: 1px solid var(--pink);
+  border-radius: 12px;
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+.signature-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.signature-box {
+  min-width: 0;
+  padding: 12px 9px;
+  border: 1px solid #f6d4e2;
+  border-radius: 14px;
+  background: #fff7fa;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.signature-label {
+  font-size: 12px;
+  font-weight: bold;
+  color: #8b6877;
+  margin-bottom: 12px;
+}
+
+.love-signature {
+  min-height: 66px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 17px;
+  font-weight: bold;
+  font-style: italic;
+  color: var(--deep-pink);
+}
+
+.signature-canvas {
+  width: 100%;
+  height: 70px;
+  display: block;
+  background: white;
+  border: 1px solid #f0c1d4;
+  border-radius: 8px;
+  touch-action: none;
+  cursor: crosshair;
+}
+
+.signature-controls {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 7px;
+  margin-top: 12px;
+}
+
+.small-btn {
+  padding: 8px 10px;
+  border: 0;
+  border-radius: 8px;
+  background: var(--pink);
+  color: var(--deep-pink);
+  font-size: 12px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.small-btn.clear {
+  background: #f1f1f1;
+  color: #555;
+}
+
+.certificate-footer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 10px;
+  margin-top: 20px;
+  padding-top: 14px;
+  border-top: 1px solid #f4d7e3;
+  text-align: left;
+  font-size: 12px;
+  color: #806776;
+}
+
+.seal {
+  color: var(--deep-pink);
+  font-weight: bold;
+}
+
+.footer {
+  width: 100%;
+  margin-top: auto;
+  padding: 28px 10px 12px;
+  text-align: center;
+  border-top: 1px solid #f1c8d9;
+  color: #a04a6e;
+  font-size: 14px;
+  line-height: 1.8;
+}
+
+.footer strong {
+  color: var(--deep-pink);
+  font-size: 15px;
+}
+
+.instagram-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  margin-top: 10px;
+  padding: 9px 14px;
+  background: #ffffffd9;
+  border: 1px solid #f2c3d7;
+  border-radius: 30px;
+  color: var(--deep-pink);
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 13px;
+  box-shadow: 0 4px 12px #bd1e5912;
+}
+
+.instagram-link:hover {
+  background: white;
+  transform: translateY(-2px);
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-7px); }
+}
+
+@keyframes appear {
+  from { opacity: 0; transform: translateY(20px) scale(.97); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.celebration {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 100;
+}
+
+.celebration span {
+  position: absolute;
+  top: -40px;
+  animation: fall 3.5s linear forwards;
+}
+
+@keyframes fall {
+  to {
+    transform: translateY(110vh) rotate(650deg);
+    opacity: 0;
+  }
+}
+
+@media (max-width: 430px) {
+  .page {
+    padding: 20px 12px 12px;
+  }
+
+  .hero-image {
+    height: 260px;
+  }
+
+  .certificate {
+    padding: 16px 12px;
+  }
+
+  .signature-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .certificate-footer {
+    flex-direction: column;
+  }
+
+  .btn {
+    padding: 12px 22px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="page">
+  <main class="main-content">
+
+    <img
+      id="imageDisplay"
+      class="hero-image"
+      src="./images/image1.gif"
+      alt="Cute kitten with flowers"
+    >
+
+    <h1 id="valentineQuestion" class="question">
+      Will you be my Valentine?
+    </h1>
+
+    <div id="responseButtons" class="button-row">
+      <button id="yesButton" class="btn yes-btn" type="button">
+        Yes 💗
+      </button>
+
+      <button id="noButton" class="btn no-btn" type="button">
+        No
+      </button>
+    </div>
+
+    <div id="postYesContainer" hidden>
+      <button id="openCertificateBtn" class="certificate-open-btn"
+        type="button">
+        📜 Open Valentine Certificate 💕
+      </button>
+    </div>
+
+    <section id="certificateCard" class="certificate" hidden>
+      <div class="document-label">📜 OFFICIAL DOCUMENT 📜</div>
+
+      <h2>Certificate of Valentine Partnership</h2>
+
+      <p class="certificate-description">
+        This certifies that you have officially and unconditionally
+        agreed to be my Valentine for 2026 and forever after! 💖
+      </p>
+
+      <div class="terms">
+        ✨ <strong>Terms &amp; Conditions:</strong>
+        Entitled to unlimited cuddles, snacks, cute dates, and
+        forehead kisses. Strictly non-refundable. 💕
+      </div>
+
+      <div class="signature-grid">
+
+        <div class="signature-box">
+          <span class="signature-label">Your Partner</span>
+          <div class="love-signature">Signed with Love 💖</div>
+          <span class="signature-label">Official Valentine Proposer</span>
+        </div>
+
+        <div class="signature-box">
+          <span class="signature-label">Your Signature / Paw Stamp</span>
+
+          <canvas id="signatureCanvas" class="signature-canvas"
+            width="440" height="140"
+            aria-label="Draw your signature here"></canvas>
+
+          <div class="signature-controls">
+            <button id="stampPawBtn" class="small-btn" type="button">
+              🐾 Stamp Paw
+            </button>
+
+            <button id="clearSignBtn" class="small-btn clear" type="button">
+              ↺ Clear
+            </button>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="certificate-footer">
+        <div><strong>Date:</strong> <span id="certificateDate"></span></div>
+        <div class="seal">❤️ Sealed with a Kiss</div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="footer">
+    <strong>Made with ❤️ and a little bit of love</strong>
+      
+    <div>© <span id="footerYear"></span> Shifatur Rahman | Forever yours 💕</div>
+
+   
+    
+  </footer>
+</div>
+
+<div id="celebration" class="celebration" aria-hidden="true"></div>
+
+<script>
+(() => {
+  "use strict";
+
+  const $ = id => document.getElementById(id);
+
+  const yesButton = $("yesButton");
+  const noButton = $("noButton");
+  const imageDisplay = $("imageDisplay");
+  const question = $("valentineQuestion");
+  const responseButtons = $("responseButtons");
+  const postYesContainer = $("postYesContainer");
+  const openCertificateBtn = $("openCertificateBtn");
+  const certificateCard = $("certificateCard");
+  const canvas = $("signatureCanvas");
+  const ctx = canvas.getContext("2d");
+
+  const images = [
+    "./images/image1.gif",
+    "./images/image2.gif",
+    "./images/image3.gif",
+    "./images/image4.gif",
+    "./images/image5.gif",
+    "./images/image6.gif",
+    "./images/image7.gif"
+  ];
+
+  const altTexts = [
+    "Cute kitten with flowers",
+    "Sad kitten looking up",
+    "Kitten begging",
+    "Heartbroken kitten",
+    "Crying kitten",
+    "Devastated kitten",
+    "Happy kitten celebrating"
+  ];
+
+  const noMessages = [
+    "No",
+    "Are you sure?",
+    "Pookie please 🥺",
+    "Don't do this to me :(",
+    "You're breaking my heart 💔",
+    "I'm gonna cry..."
+  ];
+
+  let noCount = 0;
+  let yesHeight = 48;
+  let yesWidth = 82;
+  let yesFontSize = 19;
+  let drawing = false;
+  let lastPoint = null;
+
+  // Current date and footer year
+  const today = new Date();
+
+  $("certificateDate").textContent = today.toLocaleDateString(
+    "en-US",
+    { year: "numeric", month: "long", day: "numeric" }
+  );
+
+  $("footerYear").textContent = today.getFullYear();
+
+  // Change image and grow Yes button when No is clicked
+  noButton.addEventListener("click", () => {
+    if (noCount >= 5) return;
+
+    noCount++;
+
+    imageDisplay.src = images[noCount];
+    imageDisplay.alt = altTexts[noCount];
+    noButton.textContent = noMessages[noCount];
+
+    yesHeight += 14;
+    yesWidth += 12;
+    yesFontSize += 3;
+
+    yesButton.style.height = yesHeight + "px";
+    yesButton.style.width = yesWidth + "px";
+    yesButton.style.fontSize = yesFontSize + "px";
+  });
+
+  // Cute falling hearts and confetti, without external libraries
+  function celebrate() {
+    const container = $("celebration");
+    const symbols = ["💗", "💕", "💖", "💘", "❤️", "✨"];
+
+    for (let i = 0; i < 45; i++) {
+      const item = document.createElement("span");
+
+      item.textContent = symbols[
+        Math.floor(Math.random() * symbols.length)
+      ];
+
+      item.style.left = Math.random() * 100 + "%";
+      item.style.animationDelay = Math.random() * 1.8 + "s";
+      item.style.fontSize = (16 + Math.random() * 22) + "px";
+
+      container.appendChild(item);
+      item.addEventListener("animationend", () => item.remove());
+    }
+  }
+
+  // Yes button
+  yesButton.addEventListener("click", () => {
+    imageDisplay.src = images[6];
+    imageDisplay.alt = altTexts[6];
+
+    question.textContent = "Yayyy!! You made me so happy! 💖";
+    responseButtons.hidden = true;
+    postYesContainer.hidden = false;
+
+    celebrate();
+  });
+
+  // Open and close certificate
+  openCertificateBtn.addEventListener("click", () => {
+    const willOpen = certificateCard.hidden;
+
+    certificateCard.hidden = !willOpen;
+
+    openCertificateBtn.textContent = willOpen
+      ? "📜 Close Certificate"
+      : "📜 Open Valentine Certificate 💕";
+
+    if (willOpen) {
+      certificateCard.scrollIntoView({
+        behavior: "smooth",
+        block: "start"
+      });
+
+      celebrate();
+    }
+  });
+
+  // Canvas drawing setup
+  ctx.lineWidth = 4;
+  ctx.lineCap = "round";
+  ctx.lineJoin = "round";
+  ctx.strokeStyle = "#bd1e59";
+
+  function pointFromEvent(event) {
+    const rect = canvas.getBoundingClientRect();
+
+    return {
+      x: (event.clientX - rect.left) * canvas.width / rect.width,
+      y: (event.clientY - rect.top) * canvas.height / rect.height
+    };
+  }
+
+  canvas.addEventListener("pointerdown", event => {
+    event.preventDefault();
+    drawing = true;
+    lastPoint = pointFromEvent(event);
+    canvas.setPointerCapture(event.pointerId);
+
+    ctx.beginPath();
+    ctx.moveTo(lastPoint.x, lastPoint.y);
+    ctx.lineTo(lastPoint.x + 0.1, lastPoint.y + 0.1);
+    ctx.stroke();
+  });
+
+  canvas.addEventListener("pointermove", event => {
+    if (!drawing) return;
+
+    event.preventDefault();
+
+    const point = pointFromEvent(event);
+
+    ctx.beginPath();
+    ctx.moveTo(lastPoint.x, lastPoint.y);
+    ctx.lineTo(point.x, point.y);
+    ctx.stroke();
+
+    lastPoint = point;
+  });
+
+  function stopDrawing() {
+    drawing = false;
+    lastPoint = null;
+  }
+
+  canvas.addEventListener("pointerup", stopDrawing);
+  canvas.addEventListener("pointercancel", stopDrawing);
+  canvas.addEventListener("lostpointercapture", stopDrawing);
+
+  // Paw stamp
+  function stampPaw(x, y, size) {
+    ctx.save();
+    ctx.fillStyle = "#bd1e59";
+
+    ctx.beginPath();
+    ctx.ellipse(
+      x, y + size * 0.2,
+      size * 0.5, size * 0.4,
+      0, 0, Math.PI * 2
+    );
+    ctx.fill();
+
+    const toes = [
+      [-0.43, -0.20, -0.3],
+      [-0.15, -0.43, -0.1],
+      [ 0.15, -0.43,  0.1],
+      [ 0.43, -0.20,  0.3]
+    ];
+
+    toes.forEach(([dx, dy, rotation]) => {
+      ctx.beginPath();
+      ctx.ellipse(
+        x + dx * size,
+        y + dy * size,
+        size * 0.16,
+        size * 0.23,
+        rotation,
+        0, Math.PI * 2
+      );
+      ctx.fill();
+    });
+
+    ctx.restore();
+  }
+
+  $("stampPawBtn").addEventListener("click", () => {
+    stampPaw(
+      canvas.width / 2 + (Math.random() * 40 - 20),
+      canvas.height / 2 + (Math.random() * 12 - 6),
+      35
+    );
+
+    celebrate();
+  });
+
+  // Clear signature
+  $("clearSignBtn").addEventListener("click", () => {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+  });
+
+  // Show a useful message if an image path is incorrect
+  imageDisplay.addEventListener("error", () => {
+    imageDisplay.alt = "Image could not be loaded. Check your images folder.";
+  });
+
+})();
+</script>
+
+</body>
+</html>
